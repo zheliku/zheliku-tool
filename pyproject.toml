@@ -19,6 +19,4 @@ Changelog = "https://github.com/zheliku/zheliku-tool/master/CHANGELOG.md"
 name = "testpypi"
 url = "https://test.pypi.org/simple/"
 publish-url = "https://test.pypi.org/legacy/"
-username = "__token__"
-password = "pypi-AgENdGVzdC5weXBpLm9yZwIkODA5MTE4NDgtMDMxMy00ZGNlLWI3MTMtYTc3NGIwNTA1NjczAAIqWzMsImEyOTRkZDUxLWNiOTAtNGUxMC1iZTA5LWNiMmFkMmViYzc4NiJdAAAGIMVdsyi3H6MdhRoQLrhxgaVBeJl5eGQSyIqN7Hmf9EdP"
 explicit = true
