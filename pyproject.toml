@@ -1,7 +1,37 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
 [project]
 name = "zheliku-tool"
 version = "0.1.0"
-description = "Add your description here"
+description = "Lightweight timing decorator & context manager with loguru-like formatting, sync/async."
 readme = "README.md"
 requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [{ name = "Your Name" }]
+keywords = ["logging", "timer", "performance", "decorator", "asyncio"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: System :: Logging",
+  "Topic :: Software Development :: Debuggers",
+]
 dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/zheliku/zheliku-tool"
+Issues = "https://github.com/zheliku/zheliku-tool/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/zheliku_tool"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/zheliku_tool", "README.md", "LICENSE"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+    "pytest-asyncio>=1.2.0",
+]
