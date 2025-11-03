@@ -1,0 +1,74 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="torch" />
+          <option value="torchvision" />
+          <option value="torchaudio" />
+          <option value="jupyterlab" />
+          <option value="ipywidgets" />
+          <option value="numpy" />
+          <option value="scipy" />
+          <option value="scikit-learn" />
+          <option value="scikit-image" />
+          <option value="pyyaml" />
+          <option value="ruamel.yaml" />
+          <option value="ninja" />
+          <option value="h5py" />
+          <option value="numba" />
+          <option value="pybind11" />
+          <option value="imageio" />
+          <option value="opencv-python" />
+          <option value="opencv-contrib-python" />
+          <option value="plotly" />
+          <option value="open3d" />
+          <option value="pyglet" />
+          <option value="pysdf" />
+          <option value="trimesh" />
+          <option value="xatlas" />
+          <option value="rtree" />
+          <option value="pyrender" />
+          <option value="pyOpenGL" />
+          <option value="pyOpenGL_accelerate" />
+          <option value="meshcat" />
+          <option value="webdataset" />
+          <option value="omegaconf" />
+          <option value="pypng" />
+          <option value="Panda3D" />
+          <option value="simplejson" />
+          <option value="bokeh" />
+          <option value="roma" />
+          <option value="seaborn" />
+          <option value="pin" />
+          <option value="openpyxl" />
+          <option value="torchnet" />
+          <option value="wandb" />
+          <option value="colorama" />
+          <option value="GPUtil" />
+          <option value="imgaug" />
+          <option value="xlsxwriter" />
+          <option value="timm" />
+          <option value="albumentations" />
+          <option value="nodejs" />
+          <option value="objaverse" />
+          <option value="g4f" />
+          <option value="ultralytics" />
+          <option value="pycocotools" />
+          <option value="py-spy" />
+          <option value="pybullet" />
+          <option value="videoio" />
+          <option value="kornia" />
+          <option value="einops" />
+          <option value="transformations" />
+          <option value="joblib" />
+          <option value="warp-lang" />
+          <option value="fvcore" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+  </profile>
+</component>
