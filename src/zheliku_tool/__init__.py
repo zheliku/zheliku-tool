@@ -1,4 +1,7 @@
-from .time_tool import TimeLogger, time_log
+from .__about__ import __version__
+from .tools import *
 
-__all__ = ["TimeLogger", "time_log"]
-__version__ = "0.1.0"
+__all__ = tools.__all__
+__all__.append("__version__")
+
+print(__all__)

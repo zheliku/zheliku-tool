@@ -265,23 +265,6 @@ uv run pytest -v
 
 ---
 
-## 🏗️ 目录结构示例
-
-```
-zheliku-tool/
-├── pyproject.toml
-├── README.md
-├── LICENSE
-├── src/
-│   └── zheliku_tool/
-│       ├── __init__.py
-│       └── time_tool.py
-└── tests/
-    └── test_time_tool.py
-```
-
----
-
 ## 📜 许可证
 
 MIT License © 2025 [zheliku](https://github.com/zheliku)

@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from zheliku_tool.time_tool import TimeLogger, time_log
+from zheliku_tool import TimeLogger, time_log
 
 # 被测模块：根据你的包结构调整这里的导入
 # 若使用 "src/yourlib/timer_tool.py" 并在 __init__.py 里导出：
@@ -16,7 +16,8 @@ from zheliku_tool.time_tool import TimeLogger, time_log
 # --------------------------
 # 辅助函数
 # --------------------------
-def read_text(p: Path) -> str:
+def read_text(p: Path | str) -> str:
+    p = Path(p)
     return p.read_text(encoding="utf-8") if p.exists() else ""
 
 # --------------------------
@@ -235,4 +236,5 @@ def test_function_style_timer_log(tmp_path: Path):
     with time_log("evaluate", log_file=p, level=logging.INFO):
         _ = [i * i for i in range(100)]
     t = read_text(p)
+    print(f"t: {t}")
     assert "Ctx 'evaluate' OK in" in t

@@ -1,37 +1,24 @@
-[build-system]
-requires = ["hatchling>=1.25"]
-build-backend = "hatchling.build"
-
 [project]
 name = "zheliku-tool"
-version = "0.1.0"
+version = "0.1.3"
 description = "Lightweight timing decorator & context manager with loguru-like formatting, sync/async."
 readme = "README.md"
 requires-python = ">=3.12"
-license = {text = "MIT"}
-authors = [{ name = "Your Name" }]
+license-files = ["LICEN[CS]E*"]
+authors = [{ name = "zheliku" }]
 keywords = ["logging", "timer", "performance", "decorator", "asyncio"]
-classifiers = [
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3 :: Only",
-  "License :: OSI Approved :: MIT License",
-  "Topic :: System :: Logging",
-  "Topic :: Software Development :: Debuggers",
-]
 dependencies = []
 
 [project.urls]
 Homepage = "https://github.com/zheliku/zheliku-tool"
 Issues = "https://github.com/zheliku/zheliku-tool/issues"
+Repository = "https://github.com/zheliku/zheliku-tool.git"
+Changelog = "https://github.com/zheliku/zheliku-tool/master/CHANGELOG.md"
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/zheliku_tool"]
-
-[tool.hatch.build.targets.sdist]
-include = ["src/zheliku_tool", "README.md", "LICENSE"]
-
-[dependency-groups]
-dev = [
-    "pytest>=8.4.2",
-    "pytest-asyncio>=1.2.0",
-]
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+username = "__token__"
+password = "pypi-AgENdGVzdC5weXBpLm9yZwIkODA5MTE4NDgtMDMxMy00ZGNlLWI3MTMtYTc3NGIwNTA1NjczAAIqWzMsImEyOTRkZDUxLWNiOTAtNGUxMC1iZTA5LWNiMmFkMmViYzc4NiJdAAAGIMVdsyi3H6MdhRoQLrhxgaVBeJl5eGQSyIqN7Hmf9EdP"
+explicit = true
