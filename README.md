@@ -49,11 +49,14 @@ from zheliku_tool import TimeLogger, time_log
 ```python
 from zheliku_tool import TimeLogger
 
+
 @TimeLogger(log_file="run.log")
 def preprocess(data):
     # 模拟耗时计算
-    import time; time.sleep(0.02)
-    return [d**2 for d in data]
+    import time;
+    time.sleep(0.02)
+    return [d ** 2 for d in data]
+
 
 preprocess([1, 2, 3])
 ```
@@ -72,10 +75,12 @@ preprocess([1, 2, 3])
 import asyncio
 from zheliku_tool import TimeLogger
 
+
 @TimeLogger(log_file="async.log", level=logging.DEBUG)
 async def fetch_data():
     await asyncio.sleep(0.01)
     return "done"
+
 
 asyncio.run(fetch_data())
 ```
@@ -89,7 +94,7 @@ from zheliku_tool import TimeLogger
 
 with TimeLogger(logger_name="load_stage", log_file="stages.log"):
     # 一段代码的耗时
-    sum(i*i for i in range(10_000))
+    sum(i * i for i in range(10_000))
 ```
 
 异步上下文同理：
@@ -124,10 +129,12 @@ with TimeLogger(logger_name="evaluate", log_file="run.log"):
 ```python
 from zheliku_tool import TimeLogger
 
+
 def train_step():
     seg = TimeLogger.start("train")
     # 执行部分任务
-    import time; time.sleep(0.03)
+    import time;
+    time.sleep(0.03)
     elapsed = seg.stop()
     print(f"train_step 耗时 {elapsed:.2f} ms")
 ```
@@ -136,19 +143,19 @@ def train_step():
 
 ## ⚙️ 参数说明
 
-| 参数名            | 类型     | 默认值                   | 说明                                            |                      |
-| -------------- | ------ | --------------------- | --------------------------------------------- | -------------------- |
-| `level`        | `int`  | `logging.INFO`        | 日志等级（支持 `DEBUG/INFO/WARNING/ERROR`）           |                      |
-| `enable`       | `bool` | `True`                | 是否启用计时，`False` 时直接调用函数不记录                     |                      |
-| `log_dir`      | `str   | Path`                 | `None`                                        | 日志目录（未提供时自动取函数所在文件夹） |
-| `log_file`     | `str   | Path`                 | `None`                                        | 日志文件路径，可相对/绝对        |
-| `extra_msg`    | `str`  | `None`                | 附加备注文本                                        |                      |
-| `fmt`          | `str`  | 内置默认                  | `logging` 输出格式                                |                      |
-| `datefmt`      | `str`  | `"%Y-%m-%d %H:%M:%S"` | 时间格式                                          |                      |
-| `logger_name`  | `str`  | `None`                | 自定义 logger 名（默认 `<module>.<qualname>:<line>`） |                      |
-| `rotate`       | `bool` | `False`               | 是否使用滚动日志                                      |                      |
-| `max_bytes`    | `int`  | `10*1024*1024`        | 滚动阈值（字节）                                      |                      |
-| `backup_count` | `int`  | `3`                   | 滚动保留文件数                                       |                      |
+| 参数名            | 类型                    | 默认值                   | 说明                                            |                      |
+|----------------|-----------------------|-----------------------|-----------------------------------------------|----------------------|
+| `level`        | `int`                 | `logging.INFO`        | 日志等级（支持 `DEBUG/INFO/WARNING/ERROR`）           |                      |
+| `enable`       | `bool`                | `True`                | 是否启用计时，`False` 时直接调用函数不记录                     |                      |
+| `log_dir`      | `str \| Path`         | `None`                | 日志目录（未提供时自动取函数所在文件夹）                          |
+| `log_file`     | `str \| Path` | `None`                | 日志文件路径，可相对/绝对                                 |
+| `extra_msg`    | `str`                 | `None`                | 附加备注文本                                        |                      |
+| `fmt`          | `str`                 | 内置默认                  | `logging` 输出格式                                |                      |
+| `datefmt`      | `str`                 | `"%Y-%m-%d %H:%M:%S"` | 时间格式                                          |                      |
+| `logger_name`  | `str`                 | `None`                | 自定义 logger 名（默认 `<module>.<qualname>:<line>`） |                      |
+| `rotate`       | `bool`                | `False`               | 是否使用滚动日志                                      |                      |
+| `max_bytes`    | `int`                 | `10*1024*1024`        | 滚动阈值（字节）                                      |                      |
+| `backup_count` | `int`                 | `3`                   | 滚动保留文件数                                       |                      |
 
 ---
 
@@ -158,7 +165,7 @@ def train_step():
 > 优先级高于代码参数。
 
 | 环境变量                                                    | 说明                                |
-| ------------------------------------------------------- | --------------------------------- |
+|---------------------------------------------------------|-----------------------------------|
 | `TIME_LOG_ENABLE` / `TIMER_LOG_ENABLE` / `TIMER_ENABLE` | 是否启用日志（`0`、`false` 表示关闭）          |
 | `TIME_LOG_LEVEL` / `TIMER_LOG_LEVEL` / `TIMER_LEVEL`    | 设置全局日志等级，如 `DEBUG`、`INFO`、`ERROR` |
 
@@ -175,12 +182,12 @@ export TIMER_LOG_LEVEL=DEBUG
 
 1. 如果提供 `log_file`：
 
-   * **绝对路径**：直接使用；
-   * **相对路径**：基于 `log_dir`（若提供）或源文件目录。
+    * **绝对路径**：直接使用；
+    * **相对路径**：基于 `log_dir`（若提供）或源文件目录。
 2. 如果未提供 `log_file`：
 
-   * 自动生成 `<源文件同名>.log`；
-   * 目录为 `log_dir` 或源文件目录。
+    * 自动生成 `<源文件同名>.log`；
+    * 目录为 `log_dir` 或源文件目录。
 3. 会自动创建不存在的目录。
 4. 同一路径复用同一个 `FileHandler`，不会重复写入。
 
@@ -209,7 +216,7 @@ export TIMER_LOG_LEVEL=DEBUG
 自动切分日志文件，防止文件过大：
 
 ```python
-@TimeLogger(log_file="pipeline.log", rotate=True, max_bytes=1024*100, backup_count=5)
+@TimeLogger(log_file="pipeline.log", rotate=True, max_bytes=1024 * 100, backup_count=5)
 def pipeline():
     ...
 ```
