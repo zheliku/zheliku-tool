@@ -1,14 +1,14 @@
 import time
 from zheliku_tool import TimeLogger, time_log
 
-with TimeLogger():
-    time.sleep(1)
-
-
-with time_log():
+# with TimeLogger():
+#     time.sleep(1)
+#
+#
+with time_log(output="console"):
     time.sleep(1.5)
 
-@TimeLogger()
+@TimeLogger(output="console")
 def example_function():
     time.sleep(0.5)
     return "Function complete"

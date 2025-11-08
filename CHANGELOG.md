@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 
+## v0.1.5 - 2025/11/08
+### Added
+- 新增 `output` 参数（取代 `to_console` / `to_file`），可统一控制日志输出目标：
+  - `"file"`：仅写入文件；
+  - `"console"`：仅输出到控制台；
+  - `"both"`：同时输出到文件与控制台；
+  - `"none"`：不输出任何日志。
+
+
 ## v0.1.4 - 2025/11/04
 ### Fixed
 - 修复包导入时额外的打印信息。

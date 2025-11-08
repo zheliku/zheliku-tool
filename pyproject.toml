@@ -1,6 +1,6 @@
 [project]
 name = "zheliku-tool"
-version = "0.1.4"
+version = "0.1.5"
 description = "Lightweight timing decorator & context manager with loguru-like formatting, sync/async."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -20,3 +20,4 @@ name = "testpypi"
 url = "https://test.pypi.org/simple/"
 publish-url = "https://test.pypi.org/legacy/"
 explicit = true
+

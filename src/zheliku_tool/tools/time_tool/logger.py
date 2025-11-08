@@ -58,6 +58,7 @@ class TimeLogger(ContextDecorator):
         *,
         level: int = DEFAULT_LOG_LEVEL,
         enable: bool = DEFAULT_LOG_ENABLE,
+        output: str = "file",  # ✅ "file" | "console" | "both" | "none"
         log_dir: Optional[str | Path] = DEFAULT_LOG_DIR,
         log_file: Optional[str | Path] = DEFAULT_LOG_FILE,
         extra_msg: Optional[str] = DEFAULT_MESSAGE,
@@ -71,6 +72,7 @@ class TimeLogger(ContextDecorator):
     ) -> None:
         self.level = _apply_env_level(level)
         self.enable = _apply_env_enable(enable)
+        self.output = output.lower().strip()
         self.user_log_dir = Path(log_dir) if log_dir is not None else None
         self.user_log_file = Path(log_file) if log_file is not None else None
         self.extra_msg = extra_msg
@@ -115,17 +117,18 @@ class TimeLogger(ContextDecorator):
         logger.setLevel(self.level)
         logger.propagate = False
 
-        need_new = True
-        for h in list(logger.handlers):
-            if isinstance(h, logging.FileHandler):
-                try:
-                    if Path(getattr(h, "baseFilename", "")).resolve() == log_path:
-                        need_new = False
-                        break
-                except Exception:
-                    pass
+        fmt = logging.Formatter(self.fmt, datefmt=self.datefmt)
 
-        if need_new:
+        # --- 清理旧 handler（防止多次添加重复） ---
+        for h in list(logger.handlers):
+            logger.removeHandler(h)
+            try:
+                h.close()
+            except Exception:
+                pass
+
+        # --- 仅文件输出 or 同时输出 ---
+        if self.output in ("file", "both"):
             _ensure_dir(log_path)
             if self.rotate:
                 fh: logging.Handler = RotatingFileHandler(
@@ -133,11 +136,18 @@ class TimeLogger(ContextDecorator):
                 )
             else:
                 fh = logging.FileHandler(log_path, encoding="utf-8")
-
-            fmt = logging.Formatter(self.fmt, datefmt=self.datefmt)
             fh.setFormatter(fmt)
             fh.setLevel(self.level)
             logger.addHandler(fh)
+
+        # --- 仅控制台输出 or 同时输出 ---
+        if self.output in ("console", "both"):
+            ch = logging.StreamHandler()
+            ch.setFormatter(fmt)
+            ch.setLevel(self.level)
+            logger.addHandler(ch)
+
+        # --- output == "none" 时不添加任何 handler ---
         return logger
 
     # --- decorator -----------------------------------------------------------

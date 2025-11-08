@@ -21,6 +21,7 @@
 * ✅ 支持自定义文件名、日志目录与等级
 * ✅ 提供片段计时器与函数式 API
 * ✅ 无外部依赖，仅使用 Python 标准库
+* ✅ 可灵活指定输出目标：仅文件、仅控制台、或同时输出
 
 ---
 
@@ -139,6 +140,36 @@ def train_step():
     print(f"train_step 耗时 {elapsed:.2f} ms")
 ```
 
+### ✅ 6. 输出模式控制
+
+你可以通过 `output` 参数轻松切换日志输出目标：
+
+| 模式        | 行为             |
+| --------- | -------------- |
+| `file`    | 写入日志文件，不输出控制台  |
+| `console` | 仅控制台输出，不生成日志文件 |
+| `both`    | 同时写入文件与输出控制台   |
+| `none`    | 不输出日志（仍执行计时逻辑） |
+
+
+```python
+@TimeLogger(output="console")
+def only_console():
+    ...
+
+@TimeLogger(output="file")
+def only_file():
+    ...
+
+@TimeLogger(output="both")
+def both_targets():
+    ...
+
+@TimeLogger(output="none")
+def silent():
+    ...
+```
+
 ---
 
 ## ⚙️ 参数说明
@@ -147,6 +178,7 @@ def train_step():
 |----------------|-----------------------|-----------------------|-----------------------------------------------|----------------------|
 | `level`        | `int`                 | `logging.INFO`        | 日志等级（支持 `DEBUG/INFO/WARNING/ERROR`）           |                      |
 | `enable`       | `bool`                | `True`                | 是否启用计时，`False` 时直接调用函数不记录                     |                      |
+| `output` | `str` | `"file"` | 控制输出目标：`"file"`（仅文件）、`"console"`（仅控制台）、`"both"`（两者）、`"none"`（禁用输出） |
 | `log_dir`      | `str \| Path`         | `None`                | 日志目录（未提供时自动取函数所在文件夹）                          |
 | `log_file`     | `str \| Path` | `None`                | 日志文件路径，可相对/绝对                                 |
 | `extra_msg`    | `str`                 | `None`                | 附加备注文本                                        |                      |
@@ -253,16 +285,16 @@ TIME_LOG_ENABLE=0 uv run python your_script.py
 
 ## 🧪 单元测试覆盖（pytest）
 
-完整测试文件见 `tests/test_time_tool.py`，包括：
+完整测试文件见 `tests/test_time_logger.py`，覆盖：
 
-* 同步/异步装饰器
-* 同步/异步上下文
-* 路径解析
+* `output` 四种模式（console / file / both / none）
+* 同步与异步装饰器
+* 同步与异步上下文
+* 路径与 handler 复用检查
 * 滚动日志
 * 环境变量开关
-* 重复 handler 检测
-* 片段计时器
-* 函数式上下文管理
+* 自定义目录与文件名
+* 多线程安全验证
 
 运行测试：
 
